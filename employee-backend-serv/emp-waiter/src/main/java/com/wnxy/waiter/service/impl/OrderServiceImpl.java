@@ -1,6 +1,6 @@
 package com.wnxy.waiter.service.impl;
 
-import com.wnxy.waiter.entity.Order;
+import com.wnxy.waiter.model.entity.Order;
 import com.wnxy.waiter.mapper.OrderMapper;
 import com.wnxy.waiter.service.IOrderService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -16,5 +16,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements IOrderService {
+
+
 
 }

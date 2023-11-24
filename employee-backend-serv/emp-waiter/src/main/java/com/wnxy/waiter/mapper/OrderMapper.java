@@ -1,7 +1,10 @@
 package com.wnxy.waiter.mapper;
 
-import com.wnxy.waiter.entity.Order;
+import com.wnxy.waiter.model.dto.TablePriceDto;
+import com.wnxy.waiter.model.entity.Order;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2023-11-24
  */
 public interface OrderMapper extends BaseMapper<Order> {
+
+    List<TablePriceDto> queryTablePriceList();
 
 }

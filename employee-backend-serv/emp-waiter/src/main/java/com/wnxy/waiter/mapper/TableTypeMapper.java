@@ -1,6 +1,6 @@
 package com.wnxy.waiter.mapper;
 
-import com.wnxy.waiter.entity.TableType;
+import com.wnxy.waiter.model.entity.TableType;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

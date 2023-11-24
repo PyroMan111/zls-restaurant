@@ -1,6 +1,6 @@
 package com.wnxy.waiter.service.impl;
 
-import com.wnxy.waiter.entity.OrderDish;
+import com.wnxy.waiter.model.entity.OrderDish;
 import com.wnxy.waiter.mapper.OrderDishMapper;
 import com.wnxy.waiter.service.IOrderDishService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

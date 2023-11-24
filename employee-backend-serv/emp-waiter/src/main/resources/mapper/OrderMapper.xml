@@ -2,4 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wnxy.waiter.mapper.OrderMapper">
 
+    <select id="queryTablePriceList" resultType="com.wnxy.waiter.model.dto.TablePriceDto">
+        SELECT o.total_price, o.table_id
+
+        FROM `order` o JOIN `t_table` t
+
+                            ON o.table_id = t.id
+    </select>
 </mapper>

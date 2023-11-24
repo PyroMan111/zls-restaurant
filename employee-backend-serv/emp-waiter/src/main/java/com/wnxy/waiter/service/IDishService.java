@@ -1,6 +1,6 @@
 package com.wnxy.waiter.service;
 
-import com.wnxy.waiter.entity.Dish;
+import com.wnxy.waiter.model.entity.Dish;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

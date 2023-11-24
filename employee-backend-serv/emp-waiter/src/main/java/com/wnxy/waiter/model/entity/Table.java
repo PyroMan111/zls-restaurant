@@ -1,4 +1,4 @@
-package com.wnxy.waiter.entity;
+package com.wnxy.waiter.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
@@ -17,7 +17,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-  @TableName("table")
+  @TableName("t_table")
 @ApiModel(value = "Table对象", description = "")
 public class Table implements Serializable {
 

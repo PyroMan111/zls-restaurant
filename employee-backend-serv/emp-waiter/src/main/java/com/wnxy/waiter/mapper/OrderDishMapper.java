@@ -1,6 +1,6 @@
 package com.wnxy.waiter.mapper;
 
-import com.wnxy.waiter.entity.OrderDish;
+import com.wnxy.waiter.model.entity.OrderDish;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

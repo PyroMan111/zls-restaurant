@@ -1,4 +1,4 @@
-package com.wnxy.waiter.entity;
+package com.wnxy.waiter.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;

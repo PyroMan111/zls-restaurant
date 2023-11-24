@@ -1,7 +1,10 @@
 package com.wnxy.waiter.service;
 
-import com.wnxy.waiter.entity.Table;
+import com.wnxy.waiter.model.dto.TableDto;
+import com.wnxy.waiter.model.entity.Table;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ITableService extends IService<Table> {
 
+    List<TableDto> queryAllTableDto();
 }
