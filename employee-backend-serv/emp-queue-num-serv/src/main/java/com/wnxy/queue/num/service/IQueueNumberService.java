@@ -1,6 +1,6 @@
 package com.wnxy.queue.num.service;
 
-import com.wnxy.common.entity.QueueNumber;
+import com.wnxy.queue.num.entity.QueueNumber;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

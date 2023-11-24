@@ -1,4 +1,4 @@
-package com.wnxy.common.entity;
+package com.wnxy.queue.num.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;

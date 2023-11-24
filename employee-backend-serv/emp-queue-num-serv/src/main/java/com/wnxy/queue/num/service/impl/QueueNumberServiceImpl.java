@@ -1,6 +1,6 @@
 package com.wnxy.queue.num.service.impl;
 
-import com.wnxy.common.entity.QueueNumber;
+import com.wnxy.queue.num.entity.QueueNumber;
 import com.wnxy.queue.num.mapper.QueueNumberMapper;
 import com.wnxy.queue.num.service.IQueueNumberService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

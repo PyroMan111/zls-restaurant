@@ -1,6 +1,6 @@
 package com.wnxy.queue.num.mapper;
 
-import com.wnxy.common.entity.Floor;
+import com.wnxy.queue.num.entity.Floor;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

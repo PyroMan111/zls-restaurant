@@ -1,14 +1,9 @@
 package com.wnxy.queue.num.controller;
 
 
-import com.wnxy.common.entity.QueueNumber;
-import com.wnxy.queue.num.service.IFloorService;
+import com.wnxy.queue.num.entity.QueueNumber;
 import com.wnxy.queue.num.service.IQueueNumberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
