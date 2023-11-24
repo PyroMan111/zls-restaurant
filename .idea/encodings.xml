@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" native2AsciiForPropertiesFiles="true" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/employee-backend-serv/emp-cash-register/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/employee-backend-serv/emp-cash-register/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/employee-backend-serv/emp-generator/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/employee-backend-serv/emp-generator/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/employee-backend-serv/emp-kitchen/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/employee-backend-serv/emp-kitchen/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/employee-backend-serv/emp-queue-num-serv/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/employee-backend-serv/emp-queue-num-serv/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/employee-backend-serv/emp-serv-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/employee-backend-serv/emp-serv-common/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/employee-backend-serv/emp-vip-discount/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/employee-backend-serv/emp-vip-discount/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/employee-backend-serv/emp-waiter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/employee-backend-serv/emp-waiter/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/employee-backend-serv/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/employee-backend-serv/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>
