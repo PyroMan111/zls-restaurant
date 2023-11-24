@@ -15,19 +15,22 @@ public class CodeGenerator {
                             .enableSwagger() // 开启 swagger 模式
                             .fileOverride() // 覆盖已生成文件
                             .dateType(DateType.ONLY_DATE).disableOpenDir()
-                            .outputDir("D:\\IDEA\\IdeaProject\\p3-w1-first\\p3-w1\\wn-smart-restaurant\\employee-backend-serv\\emp-queue-num-serv\\src\\main\\java");
+                            .outputDir("D:\\IDEA\\IdeaProject\\p3-w1-first\\p3-w1\\wn-smart-restaurant\\j05\\employee-backend-serv\\emp-waiter\\src\\main\\java");
                     // 指定输出目录
 //                                      D:\IDEA\IdeaProject\p3-w1-first\p3-w1\D3-w5-health-sys\h-portal\src\main\java
                 }).packageConfig(builder -> {
-                    builder.parent("com.wnxy.queue.num") // 设置父包名
+                    builder.parent("com.wnxy.waiter") // 设置父包名
                             .moduleName(null) // 设置父包模块名
                             .pathInfo(Collections.singletonMap(OutputFile.mapperXml,
-                                "D:\\IDEA\\IdeaProject\\p3-w1-first\\p3-w1\\wn-smart-restaurant\\employee-backend-serv\\emp-queue-num-serv\\src\\main\\resources\\mapper"));
+                                "D:\\IDEA\\IdeaProject\\p3-w1-first\\p3-w1\\wn-smart-restaurant\\j05\\employee-backend-serv\\emp-waiter\\src\\main\\resources\\mapper"));
                     // 设置mapperXml生成路径
                 }).strategyConfig(builder -> {
                     builder.entityBuilder().enableLombok();
                     builder.controllerBuilder().enableHyphenStyle().enableRestStyle();
-                    builder.addInclude("queue_number","floor")
+                    builder.addInclude("table","table_type",
+                                    "floor","order",
+                                    "order_dish","dish"
+                            )
 //                    builder.addInclude("employee", "dish",
 //                                    "dish_detail","table",
 //                                    "table_type","vip",
