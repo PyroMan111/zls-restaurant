@@ -1,11 +1,11 @@
 package com.wnxy.waiter.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wnxy.waiter.mapper.OrderMapper;
+import com.wnxy.waiter.mapper.TableMapper;
 import com.wnxy.waiter.model.dto.TableDto;
 import com.wnxy.waiter.model.dto.TablePriceDto;
 import com.wnxy.waiter.model.entity.Table;
-import com.wnxy.waiter.mapper.OrderMapper;
-import com.wnxy.waiter.mapper.TableMapper;
 import com.wnxy.waiter.service.ITableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,20 +42,19 @@ public class TableServiceImpl extends ServiceImpl<TableMapper, Table> implements
         return tableDtoList;
     }
 
+
+//    @Override
 //    public
 
 
 }
 
 
-
-
-
 /**
  * List<TablePriceDto> tablePriceList = orderMapper.queryTablePriceList();
- *
+ * <p>
  * List<TableDto> tableDtoList = getBaseMapper().queryAllTable();
- *
+ * <p>
  * for (TableDto tableDto : tableDtoList) {
  * for (TablePriceDto priceDto : tablePriceList) {
  * boolean equals = tableDto.getId().equals(priceDto.getTableId());
@@ -64,16 +63,16 @@ public class TableServiceImpl extends ServiceImpl<TableMapper, Table> implements
  * }
  * }
  * }
- *
- *
- *
+ * <p>
+ * <p>
+ * <p>
  * List<TablePriceDto> tablePriceList = orderMapper.queryTablePriceList();
  * List<TableDto> tableDtoList = getBaseMapper().queryAllTable();
- *
+ * <p>
  * Map<Integer, BigDecimal> priceMap = tablePriceList.stream()
  * .collect(Collectors.toMap(TablePriceDto::getTableId, TablePriceDto::getTotalPrice));
- *
+ * <p>
  * tableDtoList.forEach(tableDto -> tableDto.setTotalPrice(priceMap.get(tableDto.getId())));
- *
+ * <p>
  * return tableDtoList;
  */

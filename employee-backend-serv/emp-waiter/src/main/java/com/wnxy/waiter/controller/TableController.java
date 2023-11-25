@@ -47,13 +47,7 @@ public class TableController {
             return ResponseEntity.ok(res);
         }
 
-        /**
-         * 展示所有菜品，库存不为0的菜品
-         * */
-//        @GetMapping("")
-//        public Object getPage(Page page){
-//
-//        }
+
 
 
 
