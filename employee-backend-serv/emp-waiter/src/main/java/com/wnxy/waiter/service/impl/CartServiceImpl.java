@@ -57,6 +57,8 @@ public class CartServiceImpl implements ICartService {
             // 重新计算小计 = 单价 * 数量
             cartItemDto.setSumPrice(cartItemDto.getPrice().multiply(new
                     BigDecimal(cartItemDto.getBuycount())));
+
+            cartItemDto.setOrdererId(String.valueOf(ordererId));
         }
         // 把CartItemDto对象存储到Redis的Hash类型中
         redisTemplate.opsForHash().put(RedisConstant.ORDERER_CART_PREFIX + ordererId,
@@ -64,7 +66,7 @@ public class CartServiceImpl implements ICartService {
                 JSONUtil.toJsonStr(cartItemDto)
         );
 
-//        订单的过期时间是5分钟, 下面可能执行不成功
+//        订单的过期时间是5分钟
 
         try {
 //            redisTemplate.expire(RedisConstant.ORDERER_CART_PREFIX + ordererId, 5, TimeUnit.MINUTES);

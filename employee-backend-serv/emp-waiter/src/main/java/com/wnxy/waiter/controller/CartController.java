@@ -2,8 +2,6 @@ package com.wnxy.waiter.controller;
 
 
 import cn.hutool.json.JSONUtil;
-import cn.hutool.jwt.JWT;
-import cn.hutool.jwt.JWTUtil;
 import com.wnxy.waiter.model.vo.CartItemDto;
 import com.wnxy.waiter.redisConstant.RedisConstant;
 import com.wnxy.waiter.service.ICartService;
@@ -13,9 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/cart")
@@ -37,7 +32,7 @@ public class CartController {
      * 购物车修改数量
      */
 //    @PostMapping("/changeCartNum")
-//    public Result changeCartNum(@RequestBody CartItemDto
+//    public ResponseEntity changeCartNum(@RequestBody CartItemDto
 //                                        CartItemDto, @RequestHeader("Authorization") String token) {
 //// 根据user_cart_userId这个key，加上dishId, 从Redis获取carItemVo的json存储字符串
 //        token = token.replace("Bearer ", "");
@@ -57,7 +52,7 @@ public class CartController {
 //        )));
 //// 将修改后的对象存入Redis: 用户ID 图书ID CartItemDto的json
 //        redisTemplate.opsForHash().put(userKey, itemVo.getId().toString(), JSONUtil.toJsonStr(itemVo));
-//        return Result.ok();
+//        return ResponseEntity.ok();
 //    }
 
 
@@ -70,16 +65,14 @@ public class CartController {
      * */
 
 
-
     /**
      * 菜品添加到购物车
      * 情况1：客人扫码自动从小程序登录获取到orderId
      * 客人坐好，直接口头跟服务员点餐，这时是服务员的id
-     *
+     * <p>
      * 随便选些菜，先存入redis，有个五分钟的过期时间，
      * 点选立即下单后，才往order里插入一条记录，
      * 如果不继续点击下一步付款，那么这条记录的状态会在redis中的那个key过期时被设置为作废
-     *
      */
     @PostMapping("/add/{ordererId}/{dishId}")
     public ResponseEntity addCart(
@@ -95,11 +88,49 @@ public class CartController {
 
 //        下达的订单先存入redis中，设置过期时间
 
-
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok("添加到了购物车");
     }
 
+    /**
+     * 购物车修改数量
+     */
+    @PostMapping("/changeCartNum")
+    public ResponseEntity changeCartNum(@RequestBody CartItemDto cartItemDto) {
+// 根据user_cart_userId这个key，加上bookId, 从Redis获取carItemVo的json存储字符串
 
+//        token = token.replace("Bearer ", "");
+//        JWT jwt = JWTUtil.parseToken(token);
+//        Number userId = (Number) jwt.getPayload("userId");
+
+        // 从redis获取购物项
+        String userKey = RedisConstant.ORDERER_CART_PREFIX + cartItemDto.getOrdererId().toString();
+        String json = (String) redisTemplate.opsForHash().get(userKey,
+                cartItemDto.getDishId().toString());
+
+        // json---> cartItemDto
+        CartItemDto itemVo = JSONUtil.toBean(json, CartItemDto.class);
+        // 设置购买数量
+        itemVo.setBuycount(cartItemDto.getBuycount());
+        // 重新计算小计 = 单价 * 数量
+        itemVo.setSumPrice(itemVo.getPrice().multiply(new BigDecimal(itemVo.getBuycount()
+        )));
+        // 将修改后的对象存入Redis: 用户ID 图书ID CartItemDto的json
+        redisTemplate.opsForHash().put(userKey, itemVo.getDishId().toString(), JSONUtil.toJsonStr(itemVo));
+        return ResponseEntity.ok(true);
+    }
+
+    @PostMapping("/deleteById")
+    public ResponseEntity deleteById(@RequestBody CartItemDto cartItemDto) {
+
+//        token = token.replace("Bearer ", "");
+//        JWT jwt = JWTUtil.parseToken(token);
+//        Number userId = (Number) jwt.getPayload("userId");
+
+        // 删除
+        redisTemplate.opsForHash().delete(RedisConstant.ORDERER_CART_PREFIX +
+                cartItemDto.getOrdererId(), String.valueOf(cartItemDto.getDishId()));
+        return ResponseEntity.ok(true);
+    }
 
 
     /**
