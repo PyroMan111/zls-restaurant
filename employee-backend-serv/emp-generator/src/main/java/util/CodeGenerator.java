@@ -27,9 +27,7 @@ public class CodeGenerator {
                 }).strategyConfig(builder -> {
                     builder.entityBuilder().enableLombok();
                     builder.controllerBuilder().enableHyphenStyle().enableRestStyle();
-                    builder.addInclude("size","taste",
-                                    "category","dish_detail"
-                            )
+                    builder.addInclude("employee")
 //                    builder.addInclude("employee", "dish",
 //                                    "dish_detail","table",
 //                                    "table_type","vip",

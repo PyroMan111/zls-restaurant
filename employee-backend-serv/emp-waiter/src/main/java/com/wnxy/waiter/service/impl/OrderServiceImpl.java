@@ -11,8 +11,9 @@ import com.wnxy.waiter.model.dto.CartItemDto;
 import com.wnxy.waiter.model.entity.Order;
 import com.wnxy.waiter.model.entity.OrderDish;
 import com.wnxy.waiter.model.vo.CartVo;
-import com.wnxy.waiter.redisConstant.RedisConstant;
+import com.wnxy.waiter.service.IEmployeeService;
 import com.wnxy.waiter.service.IOrderService;
+import com.wnxy.waiter.service.ITableService;
 import org.redisson.api.RedissonClient;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,14 +45,17 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private OrderDishMapper orderDishMapper;
 
     @Autowired
-    private OrderMapper orderMapper;
+    private RabbitTemplate rabbitTemplate;
 
     @Autowired
-    private RabbitTemplate rabbitTemplate;
+    private ITableService tableService;
+ @Autowired
+    private IEmployeeService employeeService;
+
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void submitOrder(Integer tableId, CartVo cartVo) {
+    public void submitOrder(Long tableId, CartVo cartVo) {
         // 生产订单ID: 雪花算法生成
         // 参数1 机器id； 参数2：机房id
         Snowflake snowflake = IdUtil.getSnowflake(1, 1);
@@ -111,13 +115,22 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 //        下单的人必须是已登录状态，这个下单人可以是顾客，也可以是员工
 //        这里只考虑登录状态下的员工，所以通过下单人的id就是emp_id, 进行一次手机号查询
 
-        order.setPhone("");
+
+
+//        根据下单人的ordererId查手机号，这里是以服务员登录，为某一桌下单的视角
+        String phone = employeeService.queryTel(Long.valueOf(cartVo.getOrdererId()));
+
+        order.setPhone(phone);
+//        需要对接
+//        根据tableId查在哪个餐厅
+        Long restaurantId = tableService.queryRestaurantIdByTable(tableId);
+        order.setRestaurantId(restaurantId);
+
 
         order.setCreateTime(new Date());
         order.setPayStatus(OrderStatusEnum.NO_PAY.getCode());
         order.setPayTime(null);
-//        需要对接
-//        order.setRestaurantId(0);
+
         order.setEmployeeId(cartVo.getOrdererId());
 //        0是堂食，1是预约，默认堂食
         order.setType(0);
@@ -127,12 +140,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         order.setDiscountedPrice(0);
 
         this.save(order);
-
-        //因为清空购物车要用到userId
-//        cartVo.setOrdererId();
-
-//        这里要直接清空指定键购物车
-//        redisTemplate.opsForHash().delete(RedisConstant.ORDERER_CART_PREFIX + cartVo.getOrdererId());
 
 //        后面再优化，用路由模型，新增一笔订单发一条消息
 

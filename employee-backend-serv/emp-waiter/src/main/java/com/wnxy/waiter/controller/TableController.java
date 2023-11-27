@@ -2,13 +2,11 @@ package com.wnxy.waiter.controller;
 
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wnxy.waiter.model.entity.Table;
 import com.wnxy.waiter.model.enums.TableStatus;
 import com.wnxy.waiter.service.ITableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,18 +34,19 @@ public class TableController {
         return tableService.queryAllTableDto();
     }
 
-        /**开台: 变更桌位状态为：status=2 待点菜*/
-        @PutMapping
-//        @Transactional
-        public ResponseEntity confirmASeat(@RequestParam Integer tableId){
-            boolean res = tableService.
-                    update(Wrappers.lambdaUpdate(Table.class).
-                            set(Table::getStatus, TableStatus.WAIT_TO_ORDER.getCode())
-                            .eq(Table::getId, tableId));
-            return ResponseEntity.ok(res);
-        }
+    /**
+     * 开台: 变更桌位状态为：status=2 待点菜
+     */
+    @PutMapping
+    public ResponseEntity confirmASeat(@RequestParam Integer tableId) {
+        boolean res = tableService.
+                update(Wrappers.lambdaUpdate(Table.class).
+                        set(Table::getStatus, TableStatus.WAIT_TO_ORDER.getCode())
+                        .eq(Table::getId, tableId));
+        return ResponseEntity.ok(res);
+    }
 
-
+    /**根据tableId查出在哪个餐厅*/
 
 
 
@@ -57,9 +56,6 @@ public class TableController {
      */
 //    @PostMapping
 //    public
-
-
-
 
 
 }

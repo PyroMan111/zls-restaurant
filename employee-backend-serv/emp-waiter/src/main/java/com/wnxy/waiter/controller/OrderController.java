@@ -40,7 +40,7 @@ public class OrderController {
     @PostMapping("/submitOrder/{tableId}")
     @Idempotent(expireTime = 30, timeunit = TimeUnit.SECONDS)
     public ResponseEntity submitOrder(
-            @PathVariable("tableId") Integer tableId,
+            @PathVariable("tableId") Long tableId,
 //            @PathVariable("orderNum") String orderNum,
 //            @PathVariable("ordererId") String ordererId,
             @RequestBody CartVo cartVo) {

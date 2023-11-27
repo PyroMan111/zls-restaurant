@@ -39,7 +39,7 @@ public class Order implements Serializable {
     private String phone;
 
     @ApiModelProperty("桌号外键")
-    private Integer tableId;
+    private Long tableId;
 
     @ApiModelProperty("创建时间")
     private Date createTime;
@@ -51,7 +51,7 @@ public class Order implements Serializable {
     private Date payTime;
 
     @ApiModelProperty("门店id  外键")
-    private Integer restaurantId;
+    private Long restaurantId;
 
     @ApiModelProperty("收银员id(外键)")
     private Integer employeeId;

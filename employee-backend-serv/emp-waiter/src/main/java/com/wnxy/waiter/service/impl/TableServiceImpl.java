@@ -1,5 +1,6 @@
 package com.wnxy.waiter.service.impl;
 
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wnxy.waiter.mapper.OrderMapper;
 import com.wnxy.waiter.mapper.TableMapper;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -43,8 +45,19 @@ public class TableServiceImpl extends ServiceImpl<TableMapper, Table> implements
     }
 
 
-//    @Override
-//    public
+    @Override
+    public Long queryRestaurantIdByTable(Long tableId) {
+        LambdaQueryChainWrapper<Table> wrapper = this.lambdaQuery()
+                .select(Table::getRestaurantId).eq(Objects.nonNull(tableId), Table::getId, tableId);
+
+        Table table = getById(tableId);
+
+        if (table == null) {
+            throw new IllegalArgumentException("No table found with id: " + tableId);
+        }
+
+        return table.getRestaurantId();
+    }
 
 
 }

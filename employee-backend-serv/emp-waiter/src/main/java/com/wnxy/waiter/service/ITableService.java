@@ -17,4 +17,6 @@ import java.util.List;
 public interface ITableService extends IService<Table> {
 
     List<TableDto> queryAllTableDto();
+
+    Long queryRestaurantIdByTable(Long tableId);
 }

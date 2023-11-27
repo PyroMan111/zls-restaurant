@@ -36,7 +36,7 @@ public class Table implements Serializable {
       private Integer status;
 
       @ApiModelProperty("所属门店id")
-      private Integer restaurantId;
+      private Long restaurantId;
 
       @ApiModelProperty("启用状态(0 未启用 ; 1  启用 )")
       private Integer invokeStatus;

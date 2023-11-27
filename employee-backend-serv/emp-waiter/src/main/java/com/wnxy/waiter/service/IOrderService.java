@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public interface IOrderService extends IService<Order> {
 
-
     @Transactional(rollbackFor = Exception.class)
-    void submitOrder(Integer tableId, CartVo cartVo);
+    void submitOrder(Long tableId, CartVo cartVo);
 }
