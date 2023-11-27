@@ -42,6 +42,12 @@
             <version>3.10.0</version>
         </dependency>
 
+<!--        消息队列-->
+        <dependency>
+            <groupId>org.springframework.amqp</groupId>
+            <artifactId>spring-rabbit</artifactId>
+        </dependency>
+
 
 
     </dependencies>

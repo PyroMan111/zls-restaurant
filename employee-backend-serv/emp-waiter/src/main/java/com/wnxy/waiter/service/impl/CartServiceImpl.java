@@ -2,8 +2,8 @@ package com.wnxy.waiter.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.json.JSONUtil;
+import com.wnxy.waiter.model.dto.CartItemDto;
 import com.wnxy.waiter.model.entity.Dish;
-import com.wnxy.waiter.model.vo.CartItemDto;
 import com.wnxy.waiter.redisConstant.RedisConstant;
 import com.wnxy.waiter.service.ICartService;
 import com.wnxy.waiter.service.IDishDetailService;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class CartServiceImpl implements ICartService {
@@ -58,7 +57,7 @@ public class CartServiceImpl implements ICartService {
             cartItemDto.setSumPrice(cartItemDto.getPrice().multiply(new
                     BigDecimal(cartItemDto.getBuycount())));
 
-            cartItemDto.setOrdererId(String.valueOf(ordererId));
+//            cartItemDto.setOrdererId(String.valueOf(ordererId));
         }
         // 把CartItemDto对象存储到Redis的Hash类型中
         redisTemplate.opsForHash().put(RedisConstant.ORDERER_CART_PREFIX + ordererId,

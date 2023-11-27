@@ -18,4 +18,6 @@ public interface OrderMapper extends BaseMapper<Order> {
 
     List<TablePriceDto> queryTablePriceList();
 
+    Integer queryOrderMaxId();
+
 }

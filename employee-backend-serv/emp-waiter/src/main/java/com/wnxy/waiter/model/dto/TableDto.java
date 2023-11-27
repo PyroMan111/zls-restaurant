@@ -20,6 +20,9 @@ public class TableDto {
     @ApiModelProperty("(0 空闲  1 用餐中 2 待点菜 3 预结账)")
     private Integer status;
 
+    @ApiModelProperty("(0 空闲  1 用餐中 2 待点菜 3 预结账)")
+    private Integer restaurantId;
+
     @ApiModelProperty("桌位类型")
     private String typeName;
 

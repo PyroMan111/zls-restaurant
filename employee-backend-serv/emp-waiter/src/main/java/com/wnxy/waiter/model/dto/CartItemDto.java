@@ -1,4 +1,4 @@
-package com.wnxy.waiter.model.vo;
+package com.wnxy.waiter.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class CartItemDto {
     // 菜品ID
-    private Integer dishId;
+    private Long dishId;
     // 菜品名称
     private String name;
     // 菜品图片
@@ -23,8 +23,8 @@ public class CartItemDto {
     // 小计 = 单价 * 数量
     private BigDecimal sumPrice;
 
-//    购买这件菜品的下单人的Id
-    private String ordererId ;
+    //    购买这件菜品的下单人的Id
+    private String ordererId;
 
 }
 

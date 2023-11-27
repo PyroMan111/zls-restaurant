@@ -2,7 +2,8 @@ package com.wnxy.waiter.controller;
 
 
 import cn.hutool.json.JSONUtil;
-import com.wnxy.waiter.model.vo.CartItemDto;
+import com.wnxy.waiter.model.dto.CartItemDto;
+import com.wnxy.waiter.model.vo.CartVo;
 import com.wnxy.waiter.redisConstant.RedisConstant;
 import com.wnxy.waiter.service.ICartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/cart")
@@ -34,7 +38,7 @@ public class CartController {
 //    @PostMapping("/changeCartNum")
 //    public ResponseEntity changeCartNum(@RequestBody CartItemDto
 //                                        CartItemDto, @RequestHeader("Authorization") String token) {
-//// 根据user_cart_userId这个key，加上dishId, 从Redis获取carItemVo的json存储字符串
+//// 根据user_cart_userId这个key，加上dishId, 从Redis获取carItemDto的json存储字符串
 //        token = token.replace("Bearer ", "");
 //        JWT jwt = JWTUtil.parseToken(token);
 //        Number userId = (Number) jwt.getPayload("userId");
@@ -44,7 +48,7 @@ public class CartController {
 //                CartItemDto.getId().toString());
 //
 //        // json---> CartItemDto
-//        com.wnxy.waiter.model.vo.CartItemDto itemVo = JSONUtil.toBean(json, CartItemDto.class);
+//        com.wnxy.waiter.model.dto.CartItemDto itemVo = JSONUtil.toBean(json, CartItemDto.class);
 //// 设置购买数量
 //        itemVo.setBuycount(CartItemDto.getBuycount());
 //// 重新计算小计 = 单价 * 数量
@@ -96,7 +100,7 @@ public class CartController {
      */
     @PostMapping("/changeCartNum")
     public ResponseEntity changeCartNum(@RequestBody CartItemDto cartItemDto) {
-// 根据user_cart_userId这个key，加上bookId, 从Redis获取carItemVo的json存储字符串
+// 根据user_cart_userId这个key，加上bookId, 从Redis获取carItemDto的json存储字符串
 
 //        token = token.replace("Bearer ", "");
 //        JWT jwt = JWTUtil.parseToken(token);
@@ -130,6 +134,42 @@ public class CartController {
         redisTemplate.opsForHash().delete(RedisConstant.ORDERER_CART_PREFIX +
                 cartItemDto.getOrdererId(), String.valueOf(cartItemDto.getDishId()));
         return ResponseEntity.ok(true);
+    }
+
+    /**
+     * 我的购物车，查询Redis
+     */
+    @GetMapping("/mycart")
+//    public ResponseEntity mycart(@RequestHeader("Authorization") String token) {
+    public ResponseEntity mycart(@RequestParam String ordererId) {
+//        token = token.replace("Bearer ", "");
+//        JWT jwt = JWTUtil.parseToken(token);
+//        Number userId = (Number) jwt.getPayload("userId");
+
+
+        // 从Redis中获取hash数据
+        Map<String, String> entries =
+                redisTemplate.opsForHash().entries(RedisConstant.ORDERER_CART_PREFIX + ordererId);
+        // 封装从Redis中获取的所有购物项
+        List<CartItemDto> cartItemDtos = new ArrayList<>();
+        // 保存购物车商品总价
+        BigDecimal totalPrice = new BigDecimal("0");
+        // 遍历集合
+        for (Map.Entry<String, String> entry : entries.entrySet()) {
+            // key 图书id
+            // value 是 CartItemDto转换后的json字符串； 现在需要json-->CartItemDto
+            CartItemDto cartItemDto = JSONUtil.toBean(entry.getValue(), CartItemDto.class);
+            cartItemDtos.add(cartItemDto);
+            // 累加小计
+            totalPrice = totalPrice.add(cartItemDto.getSumPrice());
+        }
+        // 购物车对象
+        CartVo cartVo = new CartVo();
+        cartVo.setCartItemDto(cartItemDtos);
+        cartVo.setTotalPrice(totalPrice);
+        cartVo.setOrdererId(Integer.valueOf(ordererId));
+
+        return ResponseEntity.ok(cartVo);
     }
 
 
