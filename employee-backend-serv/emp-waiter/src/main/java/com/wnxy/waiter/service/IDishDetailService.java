@@ -3,6 +3,7 @@ package com.wnxy.waiter.service;
 import com.wnxy.waiter.model.dto.DishDto;
 import com.wnxy.waiter.model.entity.DishDetail;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.wnxy.waiter.model.entity.DishInventoryDto;
 
 import java.util.List;
 
@@ -17,4 +18,7 @@ import java.util.List;
 public interface IDishDetailService extends IService<DishDetail> {
 
     List<DishDto> queryDishDtoByTypeId(Integer typeId);
+
+
+    List<DishInventoryDto> queryAllSalesAndInventory();
 }

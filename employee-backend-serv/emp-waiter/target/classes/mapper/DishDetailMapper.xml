@@ -31,4 +31,15 @@
 
 
     </select>
+    <select id="queryAllSalesAndInventory" resultType="com.wnxy.waiter.model.entity.DishInventoryDto">
+        SELECT d.id,d.name,d.monthly_sales,d.image,dd.inventory
+
+        FROM
+
+            dish d JOIN dish_detail dd
+
+                        ON d.id = dd.id
+
+                            AND dd.status = 1
+    </select>
 </mapper>

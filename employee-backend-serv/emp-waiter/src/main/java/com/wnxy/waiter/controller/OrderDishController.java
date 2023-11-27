@@ -3,7 +3,7 @@ package com.wnxy.waiter.controller;
 
 import com.wnxy.waiter.service.IOrderDishService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+//import org.springframework.http.Result;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.data.redis.core.RedisTemplate;

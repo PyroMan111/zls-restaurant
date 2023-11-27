@@ -5,7 +5,7 @@ import com.wnxy.waiter.common.Result;
 import com.wnxy.waiter.common.enums.impl.BusinessCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.http.ResponseEntity;
+//import org.springframework.http.Result;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -64,7 +64,7 @@ public class IdempotentInterceptor implements HandlerInterceptor {
     }
 
     private static void responseError(HttpServletResponse response) throws IOException {
-        ResponseEntity result = ResponseEntity.ok(BusinessCode.ORDER_REPEAT_SUBMIT);
+        Result result = Result.ok(BusinessCode.ORDER_REPEAT_SUBMIT);
         String resultJson = JSONUtil.toJsonStr(result);
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write(resultJson);

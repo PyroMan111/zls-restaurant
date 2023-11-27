@@ -36,7 +36,7 @@ public class DishDetail implements Serializable {
       private Integer sizeId;
 
       @ApiModelProperty("菜品介绍")
-      private String introducer;
+      private String introduction;
 
       @ApiModelProperty("库存")
       private Integer inventory;

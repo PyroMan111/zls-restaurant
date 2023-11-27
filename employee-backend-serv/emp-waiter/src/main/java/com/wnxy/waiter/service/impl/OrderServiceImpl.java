@@ -5,6 +5,9 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wnxy.waiter.common.constant.OrderStatusEnum;
+import com.wnxy.waiter.common.enums.impl.BusinessCode;
+import com.wnxy.waiter.common.exception.Asserts;
+import com.wnxy.waiter.common.exception.BusinessException;
 import com.wnxy.waiter.mapper.OrderDishMapper;
 import com.wnxy.waiter.mapper.OrderMapper;
 import com.wnxy.waiter.model.dto.CartItemDto;
@@ -14,6 +17,7 @@ import com.wnxy.waiter.model.vo.CartVo;
 import com.wnxy.waiter.service.IEmployeeService;
 import com.wnxy.waiter.service.IOrderService;
 import com.wnxy.waiter.service.ITableService;
+import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,23 +77,23 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
              * 扣除
              * 库存数扣完后要释放锁
              * */
-////            【获取分布式锁对象】
-//            RLock rLock = redissonClient.getLock("Lock_" + cartItemDto.getDishId());
-//            try {
-////                【加锁】
-//                rLock.lock();
-//                // 库存是否充足？
-//                Integer storeCount = (Integer) redisTemplate.opsForHash().get("storage", cartItemDto.getId() + "");
-//                Asserts.error(cartItemDto.getBuycount() > storeCount, BusinessCode.STORAGE_IS_NOT_ENOUGH);
-//                // 库存充足，扣减库存
-//                redisTemplate.opsForHash().
-//                        increment("storage", cartItemDto.getId() + "", -cartItemDto.getBuycount());
-//            } catch (Exception e) {
-//                throw new BusinessException(BusinessCode.STORAGE_IS_NOT_ENOUGH);
-//            } finally {
-////                【释放锁】
-//                rLock.unlock();
-//            }
+//            【获取分布式锁对象】
+            RLock rLock = redissonClient.getLock("Lock_" + cartItemDto.getDishId());
+            try {
+//                【加锁】
+                rLock.lock();
+                // 库存是否充足？
+                Integer storeCount = (Integer) redisTemplate.opsForHash().get("inventory", cartItemDto.getDishId() + "");
+                Asserts.error(cartItemDto.getBuycount() > storeCount, BusinessCode.STORAGE_IS_NOT_ENOUGH);
+                // 库存充足，扣减库存
+                redisTemplate.opsForHash().
+                        increment("inventory", cartItemDto.getDishId() + "", -cartItemDto.getBuycount());
+            } catch (Exception e) {
+                throw new BusinessException(BusinessCode.STORAGE_IS_NOT_ENOUGH);
+            } finally {
+//                【释放锁】
+                rLock.unlock();
+            }
 
 
             // 订单明细

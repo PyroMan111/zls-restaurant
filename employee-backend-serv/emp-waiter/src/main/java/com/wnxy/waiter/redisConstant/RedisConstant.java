@@ -6,7 +6,7 @@ public interface RedisConstant {
     String ORDERER_CART_PREFIX = "orderer_cart_";
     //
     String BOOK_TYPE_LIST = "bookType:list";
-    String BOOK_LIST = "book:list";
+    String DISH_LIST = "dish:list";
     String USER_TOKEN_PREFIX = "user_token_";
 
 

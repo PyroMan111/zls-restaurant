@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wnxy.waiter.mapper.DishDetailMapper;
 import com.wnxy.waiter.model.dto.DishDto;
 import com.wnxy.waiter.model.entity.DishDetail;
+import com.wnxy.waiter.model.entity.DishInventoryDto;
 import com.wnxy.waiter.service.IDishDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,11 @@ public class DishDetailServiceImpl extends ServiceImpl<DishDetailMapper, DishDet
     @Override
     public List<DishDto> queryDishDtoByTypeId(Integer typeId) {
         return dishDetailMapper.queryDishByTypeId(typeId);
+    }
+
+    @Override
+    public List<DishInventoryDto> queryAllSalesAndInventory(){
+        return dishDetailMapper.queryAllSalesAndInventory();
     }
 
 
