@@ -142,7 +142,7 @@ public class CartController {
      */
     @GetMapping("/mycart")
 //    public Result mycart(@RequestHeader("Authorization") String token) {
-    public Result mycart(@RequestParam String ordererId) {
+    public CartVo mycart(@RequestParam String ordererId) {
 //        token = token.replace("Bearer ", "");
 //        JWT jwt = JWTUtil.parseToken(token);
 //        Number userId = (Number) jwt.getPayload("userId");
@@ -170,7 +170,7 @@ public class CartController {
         cartVo.setTotalPrice(totalPrice);
         cartVo.setOrdererId(Integer.valueOf(ordererId));
 
-        return Result.ok(cartVo);
+        return cartVo;
     }
 
 

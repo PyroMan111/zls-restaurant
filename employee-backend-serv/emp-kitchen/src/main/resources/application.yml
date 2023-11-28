@@ -1,0 +1,24 @@
+# tomcat的配置
+server:
+  port: 7015
+  servlet:
+    context-path: /
+
+# 连接池的配置
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/temp?characterEncoding=utf8&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+
+
+# mybatis-plus的配置
+mybatis-plus:
+  global-config:
+    db-config:
+      # 主键自增长类型
+      id-type: auto
+  configuration:
+    # 显示SQL语句的日志信息
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

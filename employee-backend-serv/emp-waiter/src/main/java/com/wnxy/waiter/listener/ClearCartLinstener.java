@@ -26,6 +26,7 @@ public class ClearCartLinstener {
     //清理购物车
     @RabbitHandler
     public void handler(
+
             String str, Channel channel, Message message,
             @Header(AmqpHeaders.DELIVERY_TAG) Long deliveryTag) throws IOException {
         log.info("ClearCart监听器，监听到的JSON字符串消息：{}", str);

@@ -50,10 +50,11 @@ public class TableServiceImpl extends ServiceImpl<TableMapper, Table> implements
 
     @Override
     public Long queryRestaurantIdByTable(Long tableId) {
-        LambdaQueryChainWrapper<Table> wrapper = this.lambdaQuery()
-                .select(Table::getRestaurantId).eq(Objects.nonNull(tableId), Table::getId, tableId);
+//        LambdaQueryChainWrapper<Table> wrapper = this.lambdaQuery()
+//                .select(Table::getRestaurantId).eq(Objects.nonNull(tableId), Table::getId, tableId);
+        Table table = this.getById(tableId);
 
-        Table table = this.getOne(wrapper);
+//        Table table = this.getOne(wrapper);
 
         if (table == null) {
             throw new IllegalArgumentException("没有找到此桌位号: " + tableId);

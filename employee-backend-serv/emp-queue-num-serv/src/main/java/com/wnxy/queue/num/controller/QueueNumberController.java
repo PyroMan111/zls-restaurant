@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 前端控制器
  * </p>
  *
- * @author 作者
+ * @author 123
  * @since 2023-11-24
  */
 @RestController
@@ -37,13 +37,26 @@ public class QueueNumberController {
      *
      */
 
+
+    /**
+     * 假设现在某餐厅爆满，A桌正在吃，B桌刚腾出来，C桌有人坐 正准备点菜，
+     *
+     * 情景1：小明一行人4人叫了个号，等待时间应该不确定，是从取号那一刻开始算，
+     * 它们不知道要等多久，等了50分钟不想等了，但是第60分钟 排到它们了，广播开始叫号，叫了三次，座位腾在那儿5分钟
+     * 5分钟过了，就过号(此号过期)，此queueNumber投入死信队列，将状态status设置为1 过号
+     *
+     * */
+
+    /**
+     * 调用别的接口预估时间，需要知道等待时间 x
+     */
     @PostMapping("/add")
-    public Result add(@RequestBody QueueNumber queueNumber,Long waitingTime) {
+    public Result add(@RequestBody QueueNumber queueNumber, Long waitingTime) {
 //        Result result = queueNumberService.newQueueNumber(queueNumber);
 //        等待时长单位为分钟，n分钟为 n * 60 * 1000
-        long minutes = waitingTime  * 1000;
+        long minutes = waitingTime * 1000;
 
-        boolean res = queueNumberService.newQueueNumber(queueNumber,minutes);
+        boolean res = queueNumberService.newQueueNumber(queueNumber, minutes);
         return Result.ok(res);
     }
 
