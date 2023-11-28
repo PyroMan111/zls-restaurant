@@ -12,7 +12,12 @@ spring:
     time-zone: GMT+8
     default-property-inclusion: non_null # 对象的NULL值属性不转换为JSON
 
-
+  rabbitmq:
+    host: 192.168.80.9
+    port: 5672
+    username: admin
+    password: 123
+    virtual-host: /wnxy
   # 配置Redis
 #  redis:
 #    host: 192.168.80.9

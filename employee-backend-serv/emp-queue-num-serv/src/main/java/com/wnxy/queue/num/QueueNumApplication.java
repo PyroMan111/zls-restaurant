@@ -15,6 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan("com.wnxy.queue.num.mapper")
 //@EnableFeignClients
 @SpringBootApplication
+
 public class QueueNumApplication {
     public static void main(String[] args) {
         SpringApplication.run(QueueNumApplication.class, args);

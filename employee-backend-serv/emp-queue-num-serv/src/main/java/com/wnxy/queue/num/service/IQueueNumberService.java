@@ -14,5 +14,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IQueueNumberService extends IService<QueueNumber> {
 
-    boolean newQueueNumber(QueueNumber queueNumber);
+
+    boolean newQueueNumber(QueueNumber queueNumber, long delayTimes);
 }
