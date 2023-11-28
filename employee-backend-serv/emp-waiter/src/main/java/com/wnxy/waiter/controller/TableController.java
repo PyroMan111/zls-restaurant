@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * <p>
@@ -39,7 +40,7 @@ public class TableController {
      * 开台: 变更桌位状态为：status=2 待点菜
      */
     @PutMapping
-    public Result confirmASeat(@RequestParam Integer tableId) {
+    public synchronized Result confirmASeat(@RequestParam Integer tableId) {
         boolean res = tableService.
                 update(Wrappers.lambdaUpdate(Table.class).
                         set(Table::getStatus, TableStatus.WAIT_TO_ORDER.getCode())
@@ -48,6 +49,16 @@ public class TableController {
     }
 
     /**根据tableId查出在哪个餐厅*/
+
+    /**定时任务，每五秒钟查询一次台位状态，(0 空闲  1 用餐中 2 待点菜 3 预结账)*/
+    @GetMapping("/getTableStatus")
+    public Result getTableStatus(){
+        ConcurrentHashMap<Integer, Integer> map = tableService.queryTableDiningStatus();
+
+
+        return Result.ok(map);
+    }
+
 
 
 

@@ -1,5 +1,6 @@
 package com.wnxy.queue.num.service;
 
+import com.wnxy.queue.num.common.Result;
 import com.wnxy.queue.num.entity.QueueNumber;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IQueueNumberService extends IService<QueueNumber> {
 
+    boolean newQueueNumber(QueueNumber queueNumber);
 }

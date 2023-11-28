@@ -70,11 +70,10 @@ public class OrderController {
             // 后台会启动一个看门狗的线程watchdog，每10秒执行一次，给锁进行续期到30秒
             rLock.lock();
             // 执行加锁的业务操作....
-//            Thread.sleep(50 * 1000);
             // 创建订单
             orderService.submitOrder( tableId, cartVo);
 
-            Thread.sleep(5 * 1000);
+            Thread.sleep(2 * 1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } finally {

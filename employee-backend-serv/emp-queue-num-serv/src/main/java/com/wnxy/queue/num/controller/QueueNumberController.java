@@ -1,6 +1,7 @@
 package com.wnxy.queue.num.controller;
 
 
+import com.wnxy.queue.num.common.Result;
 import com.wnxy.queue.num.entity.QueueNumber;
 import com.wnxy.queue.num.service.IQueueNumberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,13 @@ public class QueueNumberController {
     private IQueueNumberService queueNumberService;
 
     @PostMapping("/add")
-    public boolean add(@RequestBody QueueNumber queueNumber){
-        boolean res = queueNumberService.save(queueNumber);
+    public Result add(@RequestBody QueueNumber queueNumber){
+//        Result result = queueNumberService.newQueueNumber(queueNumber);
+
+
+        if (result.getCode()==200) {
+
+        }
         return res;
     }
 

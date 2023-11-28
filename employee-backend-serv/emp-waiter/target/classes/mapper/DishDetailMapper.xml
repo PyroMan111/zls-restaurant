@@ -21,7 +21,7 @@
 
         JOIN taste t ON dd.taste_id = t.id
 
-        JOIN category c ON d.category_id = c.id
+        JOIN cuisine c ON d.category_id = c.id
 
         WHERE dd.inventory != 0 AND d.status != 0
 

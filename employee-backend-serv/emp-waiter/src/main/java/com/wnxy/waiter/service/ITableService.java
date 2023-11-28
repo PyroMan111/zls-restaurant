@@ -5,6 +5,7 @@ import com.wnxy.waiter.model.entity.Table;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * <p>
@@ -19,4 +20,6 @@ public interface ITableService extends IService<Table> {
     List<TableDto> queryAllTableDto();
 
     Long queryRestaurantIdByTable(Long tableId);
+
+    ConcurrentHashMap<Integer,Integer> queryTableDiningStatus();
 }

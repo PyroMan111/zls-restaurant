@@ -18,7 +18,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-  @TableName("category")
+  @TableName("cuisine")
 @ApiModel(value = "Category对象", description = "")
 public class Category implements Serializable {
 

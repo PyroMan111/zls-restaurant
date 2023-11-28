@@ -55,7 +55,7 @@ public class CartController {
 //// 重新计算小计 = 单价 * 数量
 //        itemVo.setSumPrice(itemVo.getPrice().multiply(new BigDecimal(itemVo.getBuycount()
 //        )));
-//// 将修改后的对象存入Redis: 用户ID 图书ID CartItemDto的json
+//// 将修改后的对象存入Redis: 用户ID 菜品ID CartItemDto的json
 //        redisTemplate.opsForHash().put(userKey, itemVo.getId().toString(), JSONUtil.toJsonStr(itemVo));
 //        return Result.ok();
 //    }
@@ -119,7 +119,7 @@ public class CartController {
         // 重新计算小计 = 单价 * 数量
         itemVo.setSumPrice(itemVo.getPrice().multiply(new BigDecimal(itemVo.getBuycount()
         )));
-        // 将修改后的对象存入Redis: 用户ID 图书ID CartItemDto的json
+        // 将修改后的对象存入Redis: 用户ID 菜品ID CartItemDto的json
         redisTemplate.opsForHash().put(userKey, itemVo.getDishId().toString(), JSONUtil.toJsonStr(itemVo));
         return Result.ok(true);
     }
@@ -157,7 +157,7 @@ public class CartController {
         BigDecimal totalPrice = new BigDecimal("0");
         // 遍历集合
         for (Map.Entry<String, String> entry : entries.entrySet()) {
-            // key 图书id
+            // key 菜品id
             // value 是 CartItemDto转换后的json字符串； 现在需要json-->CartItemDto
             CartItemDto cartItemDto = JSONUtil.toBean(entry.getValue(), CartItemDto.class);
             cartItemDtos.add(cartItemDto);

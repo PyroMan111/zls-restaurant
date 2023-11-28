@@ -6,15 +6,18 @@ import com.wnxy.waiter.mapper.OrderMapper;
 import com.wnxy.waiter.mapper.TableMapper;
 import com.wnxy.waiter.model.dto.TableDto;
 import com.wnxy.waiter.model.dto.TablePriceDto;
+import com.wnxy.waiter.model.dto.TableStatusDto;
 import com.wnxy.waiter.model.entity.Table;
 import com.wnxy.waiter.service.ITableService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 /**
@@ -50,13 +53,39 @@ public class TableServiceImpl extends ServiceImpl<TableMapper, Table> implements
         LambdaQueryChainWrapper<Table> wrapper = this.lambdaQuery()
                 .select(Table::getRestaurantId).eq(Objects.nonNull(tableId), Table::getId, tableId);
 
-        Table table = getById(tableId);
+        Table table = this.getOne(wrapper);
 
         if (table == null) {
-            throw new IllegalArgumentException("No table found with id: " + tableId);
+            throw new IllegalArgumentException("没有找到此桌位号: " + tableId);
         }
 
         return table.getRestaurantId();
+    }
+
+    /**(0 空闲  1 用餐中 2 待点菜 3 预结账)*/
+    /**
+     * 本来一个桌位是空闲，然后有两批人进入小程序查看，此时一个桌位有人开台进入待点菜状态，
+     * 然后另一个人正好也选了这个，此时都会调用confirmASeat这个接口去set status = 2会出现并发安全问题
+     */
+    @Override
+    @Scheduled
+    public ConcurrentHashMap<Integer, Integer> queryTableDiningStatus() {
+
+        List<TableStatusDto> tableStatusList = this.getBaseMapper().queryAllTableStatus();
+
+
+//查询结果是: 桌ID   用餐状态
+//           id	   status
+//           1	    2
+//           2	    0
+//           3	    1
+//           4	    1
+        ConcurrentHashMap<Integer, Integer> resultMap = new ConcurrentHashMap<>();
+        for (TableStatusDto table : tableStatusList) {
+            resultMap.put(table.getId(), table.getStatus());
+
+        }
+        return resultMap;
     }
 
 

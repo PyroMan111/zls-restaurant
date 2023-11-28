@@ -1,6 +1,7 @@
 package com.wnxy.waiter.mapper;
 
 import com.wnxy.waiter.model.dto.TableDto;
+import com.wnxy.waiter.model.dto.TableStatusDto;
 import com.wnxy.waiter.model.entity.Table;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -17,5 +18,7 @@ import java.util.List;
 public interface TableMapper extends BaseMapper<Table> {
 
    List<TableDto> queryAllTable();
+
+   List<TableStatusDto> queryAllTableStatus();
 
 }

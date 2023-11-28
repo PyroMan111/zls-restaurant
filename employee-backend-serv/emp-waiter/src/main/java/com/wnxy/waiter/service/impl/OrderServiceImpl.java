@@ -95,7 +95,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
                 rLock.unlock();
             }
 
-
             // 订单明细
             OrderDish orderDish = new OrderDish();
             orderDish.setOrderId(orderId);
@@ -118,14 +117,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
 //        下单的人必须是已登录状态，这个下单人可以是顾客，也可以是员工
 //        这里只考虑登录状态下的员工，所以通过下单人的id就是emp_id, 进行一次手机号查询
-
-
-
 //        根据下单人的ordererId查手机号，这里是以服务员登录，为某一桌下单的视角
         String phone = employeeService.queryTel(Long.valueOf(cartVo.getOrdererId()));
 
         order.setPhone(phone);
-//        需要对接
 //        根据tableId查在哪个餐厅
         Long restaurantId = tableService.queryRestaurantIdByTable(tableId);
         order.setRestaurantId(restaurantId);
@@ -147,7 +142,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
 //        后面再优化，用路由模型，新增一笔订单发一条消息
 
-//        购物车中清除掉，已经购买的书籍（MQ->任务）
+//        购物车中清除掉，已经购买的菜品（MQ->任务）
         rabbitTemplate.convertAndSend("clearBuyCartQueue", JSONUtil.toJsonStr(cartVo));
 //
 

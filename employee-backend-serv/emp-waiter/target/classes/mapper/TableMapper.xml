@@ -16,5 +16,10 @@
 
                  JOIN floor f ON t.floor_id = f.id
     </select>
+    <select id="queryAllTableStatus" resultType="com.wnxy.waiter.model.dto.TableStatusDto">
+        SELECT t.id ,t.restaurant_id
+
+        FROM t_table t WHERE t.invoke_status = 1
+    </select>
 
 </mapper>

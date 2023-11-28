@@ -53,7 +53,7 @@ public class InitDishInventoryRunner implements CommandLineRunner {
 //        bookRepository.saveAll(bookList);
 
 
-//        遍历图书，加入到Redis的zset集合，buyCount购买量作为分值
+//        遍历菜品，加入到Redis的zset集合，buyCount购买量作为分值
         inventoryDtos.forEach(inventoryDto -> {
             redisTemplate.opsForZSet().add(
                     RedisConstant.DISH_LIST, inventoryDto.getId()+":"+inventoryDto.getName(), inventoryDto.getMonthlySales());
