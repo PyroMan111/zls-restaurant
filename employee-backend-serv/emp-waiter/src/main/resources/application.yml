@@ -1,6 +1,10 @@
 server:
   port: 7010
+
 spring:
+  # 指定服务名称
+  application:
+    name: emp-waiter-serv
 
   datasource:
     url: jdbc:mysql://localhost:3306/temp?characterEncoding=utf8&useSSL=false

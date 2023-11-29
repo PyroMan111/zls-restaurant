@@ -1,9 +1,9 @@
-package com.wnxy.waiter;
+package com.wnxy.cash;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
+//import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  *
@@ -12,18 +12,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *     account-service (扣款)
  *     storage-service (库存减少)
  */
-@MapperScan("com.wnxy.waiter.mapper")
-//@EnableScheduling
+@MapperScan("com.wnxy.cash")
+//@EnableFeignClients
 @SpringBootApplication
-public class WaiterApplication {
 
-
+public class CashierApplication {
     public static void main(String[] args) {
-        SpringApplication.run(WaiterApplication.class, args);
-
-
-
+        SpringApplication.run(CashierApplication.class, args);
     }
 }
-
-//@EnableFeignClients
