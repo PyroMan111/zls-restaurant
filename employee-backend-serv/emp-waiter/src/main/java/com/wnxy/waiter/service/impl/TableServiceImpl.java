@@ -39,10 +39,15 @@ public class TableServiceImpl extends ServiceImpl<TableMapper, Table> implements
         List<TablePriceDto> tablePriceList = orderMapper.queryTablePriceList();
         List<TableDto> tableDtoList = getBaseMapper().queryAllTable();
 
-        Map<Integer, BigDecimal> priceMap = tablePriceList.stream()
-                .collect(Collectors.toMap(TablePriceDto::getTableId, TablePriceDto::getTotalPrice));
-
-        tableDtoList.forEach(tableDto -> tableDto.setTotalPrice(priceMap.get(tableDto.getId())));
+//        找出某一桌的订单信息
+        for (TableDto tableDto : tableDtoList) {
+            for (TablePriceDto priceDto : tablePriceList) {
+                boolean equals = tableDto.getId().equals(priceDto.getTableId());
+                if (equals) {
+                    tableDto.setTotalPrice(priceDto.getTotalPrice());
+                }
+            }
+        }
 
         return tableDtoList;
     }

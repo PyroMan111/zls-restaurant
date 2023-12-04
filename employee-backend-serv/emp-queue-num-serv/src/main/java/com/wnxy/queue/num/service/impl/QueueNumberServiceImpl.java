@@ -2,6 +2,7 @@ package com.wnxy.queue.num.service.impl;
 
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wnxy.queue.num.common.constant.QueueNumStatusEnum;
 import com.wnxy.queue.num.entity.QueueNumber;
 import com.wnxy.queue.num.mapper.QueueNumberMapper;
 import com.wnxy.queue.num.service.IQueueNumberService;
@@ -47,6 +48,7 @@ public class QueueNumberServiceImpl extends ServiceImpl<QueueNumberMapper, Queue
      */
     @Override
     public boolean newQueueNumber(QueueNumber queueNumber, long delayTimes) {
+        queueNumber.setStatus(QueueNumStatusEnum.CREATED_WAITING.getCode());
         boolean res = this.save(queueNumber);
 
         rabbitTemplate.convertAndSend("delayed-exchange","msg.delay", JSONUtil.toJsonStr(queueNumber), message -> {

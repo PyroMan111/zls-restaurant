@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>
- * 前端控制器
- * </p>
- *
+ * 自动叫号
  * @author 123
  * @since 2023-11-24
  */
@@ -48,7 +45,7 @@ public class QueueNumberController {
      * */
 
     /**
-     * 调用别的接口预估时间，需要知道等待时间 x
+     * 预约定桌位，5分钟内没到位就此号作废
      */
     @PostMapping("/add")
     public Result add(@RequestBody QueueNumber queueNumber, Long waitingTime) {

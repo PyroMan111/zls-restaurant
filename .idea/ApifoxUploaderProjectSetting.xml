@@ -24,6 +24,11 @@
         <option value="account-service:3645436" />
         <option value="order-service:3645436" />
         <option value="emp-queue-num-serv:3642065" />
+        <option value="emp-vip-discount:3642065" />
+        <option value="emp-cash-register:3642065" />
+        <option value="emp-kitchen:3642065" />
+        <option value="emp-gateway:3642065" />
+        <option value="emp-waiter:3642065" />
       </array>
     </option>
     <option name="yapiTokens" value="" />

@@ -61,7 +61,7 @@ public class TimeoutListener {
         if (dbQueueNumber.getStatus().equals(QueueNumStatusEnum.CREATED_WAITING.getCode())) {
 
 
-            //2.2.1 超时未就位：修改此号状态状态为1，即 已取消
+            //3. 超时未就位：修改此号状态状态为1，即 已取消
             dbQueueNumber.setStatus(QueueNumStatusEnum.EXPIRED.getCode());
             queueNumberService.updateById(dbQueueNumber);
 

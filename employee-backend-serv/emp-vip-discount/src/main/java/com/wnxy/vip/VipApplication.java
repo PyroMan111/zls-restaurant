@@ -1,9 +1,10 @@
-package com.wnxy.waiter;
+package com.wnxy.vip;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
+import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
+//import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  *
@@ -12,15 +13,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *     account-service (扣款)
  *     storage-service (库存减少)
  */
-@MapperScan("com.wnxy.waiter.mapper")
-//@EnableScheduling
+@MapperScan("com.wnxy.vip")
+//@EnableFeignClients
 @SpringBootApplication
-public class WaiterApplication {
+@EnableSwagger2WebMvc
 
-
+public class VipApplication {
     public static void main(String[] args) {
-        SpringApplication.run(WaiterApplication.class, args);
+        SpringApplication.run(VipApplication.class, args);
     }
 }
-
-//@EnableFeignClients

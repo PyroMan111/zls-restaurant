@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * <p>
- * 前端控制器
- * </p>
+ * 查看菜品详情
  *
  * @author 作者
  * @since 2023-11-24

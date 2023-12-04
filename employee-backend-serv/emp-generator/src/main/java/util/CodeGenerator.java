@@ -15,21 +15,20 @@ public class CodeGenerator {
                             .enableSwagger() // 开启 swagger 模式
                             .fileOverride() // 覆盖已生成文件
                             .dateType(DateType.ONLY_DATE).disableOpenDir()
-                            .outputDir("D:\\IDEA\\IdeaProject\\p3-w1-first\\p3-w1\\wn-smart-restaurant\\j05\\employee-backend-serv\\emp-cash-register\\src\\main\\java");
+                            .outputDir("D:\\IDEA\\IdeaProject\\p3-w1-first\\p3-w1\\wn-smart-restaurant-mine\\employee-backend-serv\\emp-vip-discount\\src\\main\\java");
                     // 指定输出目录
 //                                      D:\IDEA\IdeaProject\p3-w1-first\p3-w1\D3-w5-health-sys\h-portal\src\main\java
                 }).packageConfig(builder -> {
-                    builder.parent("com.wnxy.cash") // 设置父包名
+                    builder.parent("com.wnxy.vip") // 设置父包名
                             .moduleName(null) // 设置父包模块名
                             .pathInfo(Collections.singletonMap(OutputFile.mapperXml,
-                                "D:\\IDEA\\IdeaProject\\p3-w1-first\\p3-w1\\wn-smart-restaurant\\j05\\employee-backend-serv\\emp-cash-register\\src\\main\\resources\\mapper"));
+                                "D:\\IDEA\\IdeaProject\\p3-w1-first\\p3-w1\\wn-smart-restaurant-mine\\employee-backend-serv\\emp-vip-discount\\src\\main\\resources\\mapper"));
                     // 设置mapperXml生成路径
                 }).strategyConfig(builder -> {
                     builder.entityBuilder().enableLombok();
                     builder.controllerBuilder().enableHyphenStyle().enableRestStyle();
-                    builder.addInclude( "t_table",
-                                    "t_order","coupon_detail",
-                                    "discount_coupon")
+                    builder.addInclude("vip","vip_trade",
+                                    "vip_type")
 //                    builder.addInclude("employee", "dish",
 //                                    "dish_detail","table",
 //                                    "table_type","vip",
@@ -40,7 +39,7 @@ public class CodeGenerator {
 //                                    "category","dish_detail",
 //                                    "dish_stock","dish_stock_check")
 // 设置需要生成的表名
-                            .addTablePrefix("t_"); // 设置过滤表前缀
+                            .addTablePrefix(""); // 设置过滤表前缀
                 })
                 .execute();
     }

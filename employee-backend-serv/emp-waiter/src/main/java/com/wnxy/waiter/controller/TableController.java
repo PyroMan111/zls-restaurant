@@ -14,10 +14,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * <p>
- * 前端控制器
- * </p>
- *
+ * 查看台位
  * @author 作者
  * @since 2023-11-24
  */

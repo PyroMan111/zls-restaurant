@@ -7,15 +7,22 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="emp-gateway" />
         <module name="emp-kitchen" />
         <module name="emp-serv-common" />
         <module name="emp-cash-register" />
         <module name="emp-waiter" />
         <module name="emp-generator" />
         <module name="emp-queue-num-serv" />
+        <module name="spring-aop-demo" />
         <module name="emp-vip-discount" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="8" />
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="spring-aop-demo" options="-parameters" />
+    </option>
   </component>
 </project>

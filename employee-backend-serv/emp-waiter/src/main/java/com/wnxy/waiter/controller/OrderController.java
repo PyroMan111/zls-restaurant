@@ -4,8 +4,10 @@ package com.wnxy.waiter.controller;
 import cn.hutool.jwt.JWT;
 import cn.hutool.jwt.JWTUtil;
 import com.wnxy.waiter.common.Result;
+import com.wnxy.waiter.common.enums.impl.BusinessCode;
 import com.wnxy.waiter.config.anon.Idempotent;
 import com.wnxy.waiter.model.vo.CartVo;
+import com.wnxy.waiter.redisConstant.RedisConstant;
 import com.wnxy.waiter.service.IOrderService;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
@@ -14,13 +16,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 //import org.springframework.http.Result;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 /**
- * <p>
- * 前端控制器
- * </p>
- *
+ * 下订单
  * @author 作者
  * @since 2023-11-24
  */
@@ -43,24 +43,7 @@ public class OrderController {
     @Idempotent(expireTime = 30, timeunit = TimeUnit.SECONDS)
     public Result submitOrder(
             @PathVariable("tableId") Long tableId,
-//            @PathVariable("orderNum") String orderNum,
-//            @PathVariable("ordererId") String ordererId,
             @RequestBody CartVo cartVo) {
-
-        //完成订单的幂等检查
-//        String key = RedisConstant.ORDER_IDEMPOTENT_PREFIX + orderNum;
-//        if (redisTemplate.hasKey(key)) {
-//            return Result.fail(BusinessCode.ORDER_REPEAT_SUBMIT);
-//        }
-//        //首页提交(非重复提交)，把Key存到Redis中，实现接口幂等性保证
-//        redisTemplate.opsForValue().set(key, 1, Duration.ofSeconds(30));
-
-        // 从token中获取用户id
-//        token = token.replace("Bearer ", "");
-//        JWT jwt = JWTUtil.parseToken(token);
-//        Number userId = (Number) jwt.getPayload("userId");
-
-//        Integer ordererId = cartVo.getOrdererId();
 
         String key = "order_" + tableId;
         // 获取分布式锁对象RLock

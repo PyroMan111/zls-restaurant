@@ -18,6 +18,7 @@ public class RabbitDelayConfig {
     // 配置一个延迟交换机
     @Bean
     public CustomExchange customExchange() {
+
         Map<String, Object> arguments = new HashMap<>();
         // 设置延迟交换机的类型参数：定向模式（路由模式）
         arguments.put("x-delayed-type", "direct");
@@ -45,6 +46,7 @@ public class RabbitDelayConfig {
     public Binding bindingDelayedExchange(CustomExchange customExchange, Queue delayedQueue) {
         return BindingBuilder.bind(delayedQueue)
                 .to(customExchange).with("msg.delay").noargs();
+
     }
 
 
@@ -52,6 +54,7 @@ public class RabbitDelayConfig {
     // 死信交换机: queue-num-dlx-exchange
     // 死信队列绑定到交换机：queue-num.key.dlx
     // 死信队列
+
     @Bean
     public Queue deadLetterQueue() {
         return new Queue("queue-num-dlx-queue");
