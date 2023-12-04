@@ -1,0 +1,102 @@
+server:
+  port: 6090
+spring:
+  application:
+    name: emp-gateway # 服务名称，唯一，名称不能有下划线
+  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 192.168.80.9:8848 # 连接注册中心地址
+    gateway:
+      httpclient:
+        connect-timeout: 30000000 # 建立连接的超时时间是3秒
+        response-timeout: 5000000000 # 响应的超时时间：5秒
+
+      routes:
+        - id: waiter-api
+          #uri: http://localhost:9010
+          uri: lb://emp-waiter-serv
+          predicates:
+            - Path=/emp-waiter/**
+          filters:
+#            - StripPrefix=1
+            - name: Hystrix # 网关中降级过滤器配置
+#              args:
+#                name: fallbackcmd
+#                fallbackUri: forward:/fallback
+#              metadata:
+#                connection-timeout: 3000
+#                response-timeout: 5000
+            - name: RequestRateLimiter #限流过滤器
+              args:
+#                #每秒补充1个,令牌桶每秒填充平均速率, 允许用户每秒处理多少个请求。
+#                redis-rate-limiter.replenishRate: 1
+#                #令牌桶总容量,每秒最大处理的请求数量
+#                redis-rate-limiter.burstCapacity: 3
+#                #限流策略,通过SpEL从容器中获取对象 (对用配置类中方法名)
+#                key-resolver: "#{@ipKeyResolver}"
+#                retries: 1   # 重试次数
+#                series:
+#                  - SERVER_ERROR #返回哪个状态码需要进行重试，这里表示返回状态码为5XX进行重试
+
+        - id: sms-api
+          uri: lb://sddfp-sms-service
+          predicates:
+            - Path=/sms-service/**
+          filters:
+            - StripPrefix=1
+
+        - id: trade-api
+          uri: lb://sddfp-trade-service
+          predicates:
+            - Path=/trade-service/**
+          filters:
+            - StripPrefix=1
+
+        - id: search-api
+          uri: lb://sddfp-search-service  # lb load balance 负载均衡
+          predicates:
+            - Path=/search-service/**
+          filters:
+            - StripPrefix=1
+#  sleuth:
+#    sampler:
+#      probability: 1 # 采样率：0-1之间的浮点数
+#  zipkin:
+#    base-url: http://192.168.80.9:9411
+#    sender:
+#      type: web # 数据传输方式，web表示发送http请求到zip服务端； 还支持mq传输
+
+#  redis:
+#    host: 192.168.80.9
+#    port: 6379
+
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 500000000 # hystrix超时时间默认1秒
+
+# 网关过滤器放行的资源集合
+secure:
+  ignore:
+    whiteList:
+      - "/**/user/login"
+      - "/**/user/register"
+      - "/**/v2/api-docs"
+      - "/swagger-resources/**"
+      - "/swagger-ui.html"
+      - "/doc.html*"
+      - "/webjars/**"
+      - "/images/**"
+      - "/config/**"
+      - "/js/**"
+      - "/css/**"
+      - "/commonlib/**"
+      - "/thirdlibs/**"
+      - "/favicon.ico"
+      - "*.js"
+      - "/**/*.json"
+#      - "/**/test/page"

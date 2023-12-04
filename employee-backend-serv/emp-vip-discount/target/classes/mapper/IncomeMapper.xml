@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wnxy.vip.mapper.IncomeMapper">
+
+    <select id="queryCustomerConsum" resultType="com.wnxy.vip.dto.CustomerSpentDto">
+        SELECT
+            o.id,
+            total_price  customerSpent
+        FROM
+            t_order o
+        WHERE
+            pay_time BETWEEN
+                CONCAT(DATE(NOW()), ' 00:00:00')
+                AND
+                CONCAT(DATE(NOW()), ' 23:59:59');
+    </select>
+
+    <select id="queryVipConsum" resultType="com.wnxy.vip.dto.VipSpentDto">
+        SELECT
+        id,money vipSpent
+        FROM
+        vip_trade
+        WHERE
+        money &lt; 0
+        AND create_time BETWEEN CONCAT( DATE (NOW()), ' 00:00:00' )
+        AND CONCAT( DATE ( NOW()), ' 23:59:59' );
+    </select>
+
+    <select id="queryDiscountedAmount" resultType="com.wnxy.vip.dto.DiscountedAmountDto">
+
+        SELECT o.id, o.discounted_price discountedAmount FROM  t_order o
+        WHERE
+            pay_time BETWEEN
+                CONCAT(DATE(NOW()), ' 00:00:00')
+                AND
+                CONCAT(DATE(NOW()), ' 23:59:59');
+
+    </select>
+
+    <select id="queryTodayIncome" resultType="com.wnxy.vip.vo.IncomeVo">
+
+
+    </select>
+
+
+</mapper>

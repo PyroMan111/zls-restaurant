@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wnxy.cash.mapper.OrderMapper">
+
+    <select id="queryPrePayOrder" resultType="com.wnxy.cash.dto.PrePayOrder">
+        SELECT o.id, o.order_number, o.phone,t.id tableId,
+
+               o.pay_status,o.discounted_status,
+
+               o.discounted_price,o.total_price,o.pay_time ,
+
+               o.type
+
+        FROM t_order o
+
+                 JOIN t_table t ON o.table_id = t.id
+
+        WHERE o.pay_status = 0 and type = 0
+    </select>
+    <select id="getOnePreOrder" resultType="com.wnxy.cash.dto.PrePayOrder">
+        SELECT o.id, o.order_number, o.phone,t.id tableId,
+
+               o.pay_status,o.discounted_status,
+
+               o.discounted_price,o.total_price,o.pay_time ,
+
+               o.type
+
+        FROM t_order o
+
+                 JOIN t_table t ON o.table_id = t.id
+
+        WHERE o.pay_status = 0 and type = 0
+
+          AND o.id = #{orderId}
+    </select>
+</mapper>

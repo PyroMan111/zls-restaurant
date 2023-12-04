@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wnxy.vip.mapper.VipMapper">
+
+    <select id="queryAllVip" resultType="com.wnxy.vip.dto.VipDto">
+
+        SELECT
+            v.id,
+            v.NAME,
+            v.phone,
+            vt.type_name,
+            v.birthday,
+            v.total_expense,
+            v.sex,
+            v.balance,
+            v.create_time
+
+        FROM
+            vip v
+                JOIN vip_type vt ON v.vip_type_id = vt.id
+        WHERE `status`= 0
+    </select>
+</mapper>

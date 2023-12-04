@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wnxy.vip.mapper.VipTradeMapper">
+
+    <select id="queryTradeByVipId" resultType="com.wnxy.vip.entity.VipTrade">
+        SELECT
+            vt.*
+        FROM
+            vip_trade vt
+                JOIN vip v ON vt.vip_id = v.id
+        WHERE v.id = #{id}
+    </select>
+</mapper>
